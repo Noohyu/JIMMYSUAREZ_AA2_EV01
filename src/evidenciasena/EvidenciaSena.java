@@ -28,11 +28,11 @@ public class EvidenciaSena {
             String sql = "SELECT * FROM cliente";
             ResultSet resultado = statement.executeQuery(sql);
             
-            //Insert
-            String insertar = "INSERT INTO cliente (Cedula, Nombre, Apellido, SEXO, FechaDeEpedicion) VALUES (1023162444, 'Federico', 'Altazar', 'Masculino', '2019-02-02')";
-            PreparedStatement insertarStatement = conexion.prepareStatement(insertar);
-            insertarStatement.executeUpdate();
-            insertarStatement.close();
+            //Delete
+            int cedula = 1023162444;
+            PreparedStatement eliminarStatement = conexion.prepareStatement("DELETE FROM cliente WHERE cedula = ?");
+            eliminarStatement.setInt(1, cedula);
+            eliminarStatement.executeUpdate();
 
             while (resultado.next()) {
                 long id = resultado.getLong("Cedula");
