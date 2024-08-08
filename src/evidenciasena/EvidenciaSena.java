@@ -23,17 +23,17 @@ public class EvidenciaSena {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion correcta");
-
+            
+            //Consulta
             Statement statement = conexion.createStatement();
             String sql = "SELECT * FROM cliente";
             ResultSet resultado = statement.executeQuery(sql);
             
-            //Delete
-            int cedula = 1023162444;
-            PreparedStatement eliminarStatement = conexion.prepareStatement("DELETE FROM cliente WHERE cedula = ?");
-            eliminarStatement.setInt(1, cedula);
-            eliminarStatement.executeUpdate();
-
+            //Update
+            String actualizar = "UPDATE cliente SET Nombre = 'Melisa' WHERE Cedula = 1023162223";
+            PreparedStatement actualizarStatement = conexion.prepareStatement(actualizar);
+            actualizarStatement.executeUpdate();
+            
             while (resultado.next()) {
                 long id = resultado.getLong("Cedula");
                 String nombre = resultado.getString("Nombre");
