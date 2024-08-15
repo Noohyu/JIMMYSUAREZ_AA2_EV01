@@ -24,15 +24,27 @@ public class EvidenciaSena {
             conexion = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion correcta");
             
+            
+            //Update
+            String actualizar = "UPDATE cliente SET Nombre = 'Jose' WHERE Cedula = 1000709053";
+            PreparedStatement actualizarStatement = conexion.prepareStatement(actualizar);
+            actualizarStatement.executeUpdate();
+            
+            //Insert
+            String insertar = "INSERT INTO cliente (Cedula, Nombre, Apellido, SEXO, FechaDeEpedicion) "
+                    + "VALUES (1022582253, 'Santiago', 'Torres', 'Masculino','2018-04-27')";
+            PreparedStatement insertarStatement = conexion.prepareStatement(insertar);
+            insertarStatement.executeUpdate();
+            
+            //Delete
+            String eliminar = "DELETE FROM cliente WHERE Cedula = 1022689568";
+            PreparedStatement eliminarStatement = conexion.prepareStatement(eliminar);
+            eliminarStatement.executeUpdate();
+            
             //Consulta
             Statement statement = conexion.createStatement();
             String sql = "SELECT * FROM cliente";
             ResultSet resultado = statement.executeQuery(sql);
-            
-            //Update
-            String actualizar = "UPDATE cliente SET Nombre = 'Melisa' WHERE Cedula = 1023162223";
-            PreparedStatement actualizarStatement = conexion.prepareStatement(actualizar);
-            actualizarStatement.executeUpdate();
             
             while (resultado.next()) {
                 long id = resultado.getLong("Cedula");
@@ -50,6 +62,9 @@ public class EvidenciaSena {
 
             resultado.close();
             statement.close();
+            actualizarStatement.close();
+            insertarStatement.close();
+            eliminarStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
